@@ -3,7 +3,6 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.sql.Time;
 import java.util.concurrent.TimeUnit;
@@ -13,28 +12,32 @@ public class Main {
         System.setProperty("webdriver.chrome.driver", "webDrivers/chromedriver"); //relative path allowed
         WebDriver chromeDriver = new ChromeDriver();
 
-        chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        chromeDriver.manage().window().setSize(new Dimension(1280,720));
+        chromeDriver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        /*
+        setting the implicit wait to 5 secs sometimes make the script fail when clicking github's features
+        since the button simply needs more time to load at time
+        */
+        chromeDriver.manage().window().setSize(new Dimension(1280, 720));
 
-        chromeDriver.get("https://www.google.com");
-//        chromeDriver.navigate().to("https://www.youtube.com");
-//        chromeDriver.navigate().back();
-//        chromeDriver.navigate().forward();
-//        chromeDriver.navigate().refresh();
-//        chromeDriver.navigate().back();
-        WebElement gmailLink = chromeDriver.findElement(By.linkText("Gmail"));
-        gmailLink.click();
-        WebElement more = chromeDriver.findElement(By.partialLinkText("ПОДРОБНЕЕ"));
-        more.click();
-        System.out.println(chromeDriver.getTitle());
-        System.out.println(chromeDriver.getCurrentUrl());
+        chromeDriver.get("https://www.wikipedia.org/");
+        chromeDriver.findElement(By.xpath("//*[@id=\"search-form\"]/fieldset/button")).click();
+
+        chromeDriver.get("https://www.github.com/");
+        chromeDriver.findElement(By.xpath("/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/summary")).click();
+        chromeDriver.findElement(By.xpath("/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/div/a")).click();
+        chromeDriver.findElement(By.xpath("/html/body/div[1]/header/div/div[2]/div[2]/a[2]")).click();
         chromeDriver.navigate().back();
-//        WebElement appstore = chromeDriver.findElement(By.id("gmail-devices-appstore-button"));
-//        WebElement appstore = chromeDriver.findElement(By.xpath("//a[@id=\"gmail-devices-appstore-button\"]"));
-        WebElement appstore = chromeDriver.findElement(By.cssSelector("#gmail-devices-appstore-button"));
-//        appstore.click(); // this is not clickable - need to find the real button link behind it
+        chromeDriver.navigate().back();
+        WebElement signUpButton = chromeDriver.findElement(By.xpath("/html/body/div[4]/div[1]/div/div/div[2]/div/form/button"));
+        if (signUpButton.getText().equals("Sign up for GitHub")) {
+            System.out.println("Success!");
+        }
+        signUpButton.submit();
 
-//        chromeDriver.close(); // difference between close() and quit()
-        chromeDriver.quit();
+        chromeDriver.findElement(By.xpath("/html/body/div[1]/header/div/div[2]/div[2]/a[1]")).click();
+        chromeDriver.findElement(By.xpath("//*[@id=\"login\"]/form/div[3]/input[3]")).submit();
+
+        chromeDriver.quit(); // closes all the windows
+        //        chromeDriver.close(); //closes the current window
     }
 }
