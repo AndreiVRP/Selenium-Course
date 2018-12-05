@@ -42,6 +42,9 @@ public class Main {
 
         chromeDriver.findElement(By.xpath("/html/body/div[1]/header/div/div[2]/div[2]/a[1]")).click();
         chromeDriver.findElement(By.xpath("//*[@id=\"login\"]/form/div[3]/input[3]")).submit();
+        WebElement termsLink = chromeDriver.findElement(By.xpath("/html/body/div[4]/ul/li[1]/a"));
+        System.out.println(termsLink.getText());
+        termsLink.click();
 
         chromeDriver.quit(); // closes all the windows
         //        chromeDriver.close(); //closes the current window
