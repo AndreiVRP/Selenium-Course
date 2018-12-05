@@ -20,29 +20,29 @@ public class Main {
         chromeDriver.manage().window().setSize(new Dimension(1280, 720));
 
         chromeDriver.get("https://www.wikipedia.org/");
-        chromeDriver.findElement(By.xpath("//*[@id=\"searchInput\"]")).sendKeys("Selenium WebDriver");
-        chromeDriver.findElement(By.xpath("//*[@id=\"search-form\"]/fieldset/button")).click();
-        WebElement searchInput = chromeDriver.findElement(By.xpath("//*[@id=\"ooui-php-1\"]"));
+        chromeDriver.findElement(By.xpath("//input[@name=\"search\"]")).sendKeys("Selenium WebDriver");
+        chromeDriver.findElement(By.xpath("//button/i[text()=\"Search\"]")).click();
+        WebElement searchInput = chromeDriver.findElement(By.xpath("//div[@id=\"searchText\"]/input"));
         System.out.println(searchInput.getAttribute("value"));
         searchInput.clear();
         searchInput.sendKeys("Java");
-        chromeDriver.findElement(By.xpath("//*[@id=\"mw-search-top-table\"]/div/div/div/span/span/button")).click();
+        chromeDriver.findElement(By.xpath("//button[@type=\"submit\"]")).click();
 
         chromeDriver.get("https://www.github.com/");
-        chromeDriver.findElement(By.xpath("/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/summary")).click(); // Why GitHub?
-        chromeDriver.findElement(By.xpath("/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/div/a")).click(); // Features
-        chromeDriver.findElement(By.xpath("/html/body/div[1]/header/div/div[2]/div[2]/a[2]")).click();
+        chromeDriver.findElement(By.xpath("//summary[contains(text(),\"GitHub\")]")).click(); // Why GitHub?
+        chromeDriver.findElement(By.xpath("//div/a[contains(text(),\"Features\")]")).click(); // Features
+        chromeDriver.findElement(By.xpath("//div[contains(@class,\"Header\")]//a[contains(@href, \"join?\")]")).click();
         chromeDriver.navigate().back();
         chromeDriver.navigate().back();
-        WebElement signUpButton = chromeDriver.findElement(By.xpath("/html/body/div[4]/div[1]/div/div/div[2]/div/form/button"));
+        WebElement signUpButton = chromeDriver.findElement(By.xpath("//div/button[contains(text(), \"Sign up\")]"));
         if (signUpButton.getText().equals("Sign up for GitHub")) {
             System.out.println("Success!");
         }
         signUpButton.submit();
 
-        chromeDriver.findElement(By.xpath("/html/body/div[1]/header/div/div[2]/div[2]/a[1]")).click();
-        chromeDriver.findElement(By.xpath("//*[@id=\"login\"]/form/div[3]/input[3]")).submit();
-        WebElement termsLink = chromeDriver.findElement(By.xpath("/html/body/div[4]/ul/li[1]/a"));
+        chromeDriver.findElement(By.xpath("//div[contains(@class,\"Header\")]//a[contains(@href, \"login?\")]")).click();
+        chromeDriver.findElement(By.xpath("//input[@value=\"Sign in\"]")).submit();
+        WebElement termsLink = chromeDriver.findElement(By.xpath("//a[text()=\"Terms\"]"));
         System.out.println(termsLink.getText());
         termsLink.click();
 
