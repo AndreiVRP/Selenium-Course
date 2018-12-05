@@ -20,11 +20,17 @@ public class Main {
         chromeDriver.manage().window().setSize(new Dimension(1280, 720));
 
         chromeDriver.get("https://www.wikipedia.org/");
+        chromeDriver.findElement(By.xpath("//*[@id=\"searchInput\"]")).sendKeys("Selenium WebDriver");
         chromeDriver.findElement(By.xpath("//*[@id=\"search-form\"]/fieldset/button")).click();
+        WebElement searchInput = chromeDriver.findElement(By.xpath("//*[@id=\"ooui-php-1\"]"));
+        System.out.println(searchInput.getAttribute("value"));
+        searchInput.clear();
+        searchInput.sendKeys("Java");
+        chromeDriver.findElement(By.xpath("//*[@id=\"mw-search-top-table\"]/div/div/div/span/span/button")).click();
 
         chromeDriver.get("https://www.github.com/");
-        chromeDriver.findElement(By.xpath("/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/summary")).click();
-        chromeDriver.findElement(By.xpath("/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/div/a")).click();
+        chromeDriver.findElement(By.xpath("/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/summary")).click(); // Why GitHub?
+        chromeDriver.findElement(By.xpath("/html/body/div[1]/header/div/div[2]/nav/ul/li[1]/details/div/a")).click(); // Features
         chromeDriver.findElement(By.xpath("/html/body/div[1]/header/div/div[2]/div[2]/a[2]")).click();
         chromeDriver.navigate().back();
         chromeDriver.navigate().back();
