@@ -18,19 +18,37 @@ public class Main2 {
         chromeDriver.findElement(By.xpath("//input[contains(@id,\"search\")]")).sendKeys("smartphone");
         chromeDriver.findElement(By.xpath("//div[contains(@itemtype,\"schema\")]//button")).submit();
 
-        Actions actions = new Actions(chromeDriver);
-        actions.moveToElement(chromeDriver.findElement(By.xpath("//input[@type=\"radio\" and contains(@name,\"Способ доставки\")]"))).click().perform();
-
-        String[] boxes = {"BestHard", "RAM.BY", "NOVATEK"};
-        for (String box : boxes) {
-            String boxPath = "//input[@type=\"checkbox\" and contains(@name,\""+ box + "\")]";
-            WebElement checkbox = chromeDriver.findElement(By.xpath(boxPath));
-            actions.moveToElement(checkbox).click().perform();
-            if (checkbox.isSelected()) {
-                System.out.println(box + " is checked!");
-            }
-        }
+        String[] checkBoxes = {"BestHard", "RAM.BY", "NOVATEK"};
+        String[] radioButtons = {"Способ доставки"};
+        checkBox(chromeDriver, BoxType.checkbox, checkBoxes);
+        checkBox(chromeDriver, BoxType.radio, radioButtons);
         chromeDriver.quit();
     }
-    
+
+    public static void checkBox(WebDriver driver, BoxType boxType, String[] boxes) {
+        for (String box : boxes) {
+            Actions actions = new Actions(driver);
+            String boxPath = "//input[@type=\"" + boxType.toString() + "\" and contains(@name,\"" + box + "\")]";
+            WebElement checkbox = driver.findElement(By.xpath(boxPath));
+            actions.moveToElement(checkbox).click().perform();
+            if (checkbox.isSelected()) {
+                switch (boxType) {
+                    case checkbox:
+                        System.out.println("Checkbox " + box + " is checked!");
+                        break;
+                    case radio:
+                        System.out.println("Radio button " + box + " is selected!");
+                        break;
+                    default:
+                        System.out.println("Undefined behavior...");
+                        break;
+                }
+            }
+        }
+    }
+
+    enum BoxType {
+        checkbox, radio
+    }
+
 }
