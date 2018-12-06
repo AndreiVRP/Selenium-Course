@@ -3,15 +3,13 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
-public class Main {
+public class Main1 {
     public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "webDrivers/chromedriver"); //relative path allowed
         WebDriver chromeDriver = new ChromeDriver();
-
         chromeDriver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         /*
         setting the implicit wait to 5 secs sometimes make the script fail when clicking github's features
