@@ -1,6 +1,4 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
@@ -20,6 +18,12 @@ public class Main5 {
         .doubleClick(element);
         .contextClick(element);
         */
-        chromeDriver.quit();
+
+        //executing JavaScript
+        JavascriptExecutor jse = (JavascriptExecutor) chromeDriver;
+//        jse.executeScript("alert('HELLO, WORLD!');");
+        jse.executeScript("window.scrollBy(0,1000)", "");
+
+//        chromeDriver.quit();
     }
 }
