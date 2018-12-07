@@ -19,11 +19,21 @@ public class Main5 {
         .contextClick(element);
         */
 
-        //executing JavaScript
+        //executing JavaScript and working with alerts
         JavascriptExecutor jse = (JavascriptExecutor) chromeDriver;
-//        jse.executeScript("alert('HELLO, WORLD!');");
+        jse.executeScript("alert('HELLO, WORLD!');");
+        chromeDriver.switchTo().alert().accept();
         jse.executeScript("window.scrollBy(0,1000)", "");
 
-//        chromeDriver.quit();
+        chromeDriver.get("https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html");
+        chromeDriver.findElement(By.xpath("//a[text()=\"jdk-8u192-macosx-x64.dmg\"]")).click();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        chromeDriver.switchTo().alert().dismiss();
+
+        chromeDriver.quit();
     }
 }
