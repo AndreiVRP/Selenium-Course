@@ -1,12 +1,16 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Main5 {
     public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "webDrivers/chromedriver");
         WebDriver chromeDriver = new ChromeDriver();
         chromeDriver.manage().window().fullscreen();
+        WebDriverWait wait = new WebDriverWait(chromeDriver, 5);
+
         chromeDriver.get("https://www.ebay.com");
         WebElement hoverItem = chromeDriver.findElement(By.xpath("//li[contains(@data-hover-track,\"888\")]//a[text()=\"Электроника\"]"));
         Actions actions = new Actions(chromeDriver);
@@ -18,6 +22,18 @@ public class Main5 {
         .doubleClick(element);
         .contextClick(element);
         */
+
+        //checking elements for availability
+        WebElement iPhone = chromeDriver.findElement(By.xpath("//span[text()=\"Дополнительные категории\"]/..//a[text()=\"iPhone\"]"));
+        wait.until(ExpectedConditions.visibilityOf(iPhone));
+
+        if(iPhone.isDisplayed()) {
+            System.out.println("The iPhone section is displayed");
+            iPhone.click();
+        } else {
+            System.out.println("The iPhone section isn't displayed");
+        }
+
 
         //executing JavaScript and working with alerts
         JavascriptExecutor jse = (JavascriptExecutor) chromeDriver;
