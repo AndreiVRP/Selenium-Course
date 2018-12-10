@@ -1,6 +1,8 @@
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -9,7 +11,9 @@ import java.util.Date;
 public class Main7 {
     public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "webDrivers/chromedriver");
-        WebDriver driver = new ChromeDriver();
+        System.setProperty("webdriver.gecko.driver", "webDrivers/geckodriver");
+//        WebDriver driver = new ChromeDriver();
+        WebDriver driver = new FirefoxDriver();
         driver.manage().window().fullscreen();
         driver.get("https://www.google.by/imghp?hl=be&tab=wi");
         driver.findElement(By.xpath("//*[@aria-label=\"Search by image\"]")).click();
