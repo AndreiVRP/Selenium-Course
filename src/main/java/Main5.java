@@ -4,6 +4,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class Main5 {
     public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "webDrivers/chromedriver");
@@ -27,12 +29,17 @@ public class Main5 {
         WebElement iPhone = chromeDriver.findElement(By.xpath("//span[text()=\"Дополнительные категории\"]/..//a[text()=\"iPhone\"]"));
         wait.until(ExpectedConditions.visibilityOf(iPhone));
 
-        if(iPhone.isDisplayed()) {
+        if (iPhone.isDisplayed()) {
             System.out.println("The iPhone section is displayed");
             iPhone.click();
         } else {
             System.out.println("The iPhone section isn't displayed");
         }
+
+        // checking elements for existence
+        chromeDriver.navigate().back();
+        findElementsByTagAndText(chromeDriver, "*", "iPhone");
+        findElementsByTagAndText(chromeDriver, "a", "iPhone");
 
 
         //executing JavaScript and working with alerts
@@ -71,6 +78,21 @@ public class Main5 {
     public static void switchToNewWindow(WebDriver driver) {
         for (String windowHandle : driver.getWindowHandles()) {
             driver.switchTo().window(windowHandle); // this is to finally get to the most recent (new) window (or tab)
+        }
+    }
+
+    public static void findElementsByTagAndText(WebDriver driver, String tag, String searchText) {
+        List<WebElement> elements = driver.findElements(By.xpath("//" + tag + "[contains(text(),\"" + searchText + "\")]"));
+
+        String item = "items";
+        if (elements.size() == 1) {
+            item = "item";
+        }
+
+        if (elements.size() > 0) {
+            System.out.println("The system has found " + elements.size() + " " + item + " by tag " + tag + " containing the following text: " + searchText);
+        } else {
+            System.out.println("Nothing's found");
         }
     }
 }
