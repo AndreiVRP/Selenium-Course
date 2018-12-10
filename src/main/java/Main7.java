@@ -1,8 +1,6 @@
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -13,16 +11,11 @@ public class Main7 {
         System.setProperty("webdriver.chrome.driver", "webDrivers/chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.manage().window().fullscreen();
-        driver.get("https://www.google.com/");
-        takeScreenshot(driver);
-        WebElement searchInput = driver.findElement(By.xpath("//input[@aria-label=\"Search\"]"));
-        Actions actions = new Actions(driver);
-        actions.moveToElement(searchInput)
-                .sendKeys("12345qwerty12345")
-                .doubleClick()
-                .sendKeys("56789!")
-                .sendKeys(Keys.chord(Keys.COMMAND, "a"))
-                .build().perform();
+        driver.get("https://www.google.by/imghp?hl=be&tab=wi");
+        driver.findElement(By.xpath("//*[@aria-label=\"Search by image\"]")).click();
+        driver.findElement(By.xpath("//a[text()=\"Upload an image\"]")).click();
+        WebElement chooseFile = driver.findElement(By.xpath("//input[@type=\"file\"]"));
+        chooseFile.sendKeys("/Users/work/Desktop/test.png"); // the path always starts from / otherwise - file not found
         takeScreenshot(driver);
         driver.quit();
     }
