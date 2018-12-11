@@ -2,47 +2,62 @@ package pageobject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class HomePage {
     WebDriver driver;
-    private By signInButton = By.xpath("//a[contains(@href,\"login\")]");
-    private By signUpButton = By.xpath("//div[contains(@class,\"Header\")]//a[contains(@href,\"join\")]");
-    private By userNameField = By.xpath("//div[contains(@class,\"rounded\")]//input[@name=\"user[login]\"]");
-    private By emailField = By.xpath("//div[contains(@class,\"rounded\")]//input[@name=\"user[email]\"]");
-    private By passwordField = By.xpath("//div[contains(@class,\"rounded\")]//input[@name=\"user[password]\"]");
-    private By signUpForGitHubButton = By.xpath("//div[contains(@class,\"rounded\")]//button");
+
+    //Page Factory
+    @FindBy(xpath = "//a[contains(@href,\"login\")]")
+    private WebElement signInButton;
+
+    @FindBy(xpath = "//div[contains(@class,\"Header\")]//a[contains(@href,\"join\")]")
+    private WebElement signUpButton;
+
+    @FindBy(xpath = "//div[contains(@class,\"rounded\")]//input[@name=\"user[login]\"]")
+    private WebElement userNameField;
+
+    @FindBy(xpath = "//div[contains(@class,\"rounded\")]//input[@name=\"user[email]\"]")
+    private WebElement emailField;
+
+    @FindBy(xpath = "//div[contains(@class,\"rounded\")]//input[@name=\"user[password]\"]")
+    private WebElement passwordField;
+
+    @FindBy(xpath = "//div[contains(@class,\"rounded\")]//button")
+    private WebElement signUpForGitHubButton;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
 
     public LogInPage clickSignIn() {
-        driver.findElement(signInButton).click();
+        signInButton.click();
         return new LogInPage(driver);
     }
 
     public SignUpPage clickSignUp() {
-        driver.findElement(signUpButton).click();
+        signUpButton.click();
         return new SignUpPage(driver);
     }
 
     public SignUpPage clickSignUpForGitHubButton() {
-        driver.findElement(signUpForGitHubButton).click();
+        signUpForGitHubButton.click();
         return new SignUpPage(driver);
     }
 
     public HomePage typeUserName(String username) {
-        driver.findElement(userNameField).sendKeys(username);
+        userNameField.sendKeys(username);
         return this;
     }
 
     public HomePage typeEmail(String email) {
-        driver.findElement(emailField).sendKeys(email);
+        emailField.sendKeys(email);
         return this;
     }
 
     public HomePage typePassword(String password) {
-        driver.findElement(passwordField).sendKeys(password);
+        passwordField.sendKeys(password);
         return this;
     }
 
